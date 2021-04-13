@@ -1,0 +1,45 @@
+<template>
+  <require from="bootstrap/dist/css/bootstrap.css"></require>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <nav class="navbar navbar-expand-md navbar-dark bg-info mb-4">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">PublicisSapient Application Process</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li repeat.for="row of router.navigation" class="nav-item active">
+            <a class="nav-link" href.bind="row.href">${row.title}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="form-group">
+    <input type="text" value.bind="filters[0].value" placeholder="Enter filter text" class="form-control" />
+  </div>
+
+  
+  <table class="table table-striped" aurelia-table="data.bind: medicines; display-data.bind: $displayData; filters.bind: filters">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Brand</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>ExpiryDate</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr repeat.for="user of $displayData" style.bind="gridStyles.NameStyle" aut-select="row.bind: user; mode: multiple; selected-class: info" select.delegate="rowSelected($event)">
+        <td>${user.fullName}</td>
+        <td>${user.brand}</td>
+        <td>${user.price}</td>
+        <td>${user.quantity}</td>
+        <td>${user.expiryDate}</td>
+      </tr>
+    </tbody>
+  </table>
+</template>
